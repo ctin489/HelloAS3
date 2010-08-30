@@ -31,7 +31,8 @@
 		[Embed(source = '../../../data/star.png')] public var Star:Class;
 		public var myStar:Bitmap = new Star();
 		
-		private var innerRect:Sprite = new Sprite();
+		public var myFirstVar:String;
+		public var innerRect:Sprite = new Sprite();
 		
 		public function Main():void 
 		{
@@ -46,7 +47,6 @@
 			
 			addEventListener(Event.ENTER_FRAME, loop);
             stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
-
             innerRect.graphics.lineStyle(1, 0x00FF00, 1);
             innerRect.graphics.beginFill(0x00FF00);
             innerRect.graphics.drawRect(0, 0, 200, 200);
@@ -60,25 +60,44 @@
 			addChild(myStar);
 		}
 		
-		private function loop(e:Event = null):void
+		public function loop(e:Event = null):void
 		{
-			
-			
+			myFirstVar = "first var";
+			myFirstVar = myFristFunction(myFirstVar);
+			mySecondFunction();
 		}
 		
-        private function mouseDownHandler(event:MouseEvent):void 
+		public function myFristFunction(value:String):String
+		{
+			value = "changed by myFirstFunction";
+			return value;
+		}
+		
+		public function mySecondFunction():void
+		{
+			myFirstVar = "changed by mySecondFunction";
+			myFirstVar = myThridFunction(myFirstVar);
+		}
+		
+		public function myThridFunction(str:String):String
+		{
+			str = "changed by myThridFunction";
+			return str;
+		}
+		
+        public function mouseDownHandler(event:MouseEvent):void 
 		{
 			pwrSnd.play();
         }
 		
-        private function innerRectMouseDownHandler(e:MouseEvent):void 
+        public function innerRectMouseDownHandler(e:MouseEvent):void 
 		{
 			e.stopPropagation();
 			lasrSnd.play();
 			innerRect.addEventListener(MouseEvent.MOUSE_MOVE, innerRectMouseMoveHandler, false, 0, true);
         }
 		
-		private function innerRectMouseUpHandler(e:Event):void
+		public function innerRectMouseUpHandler(e:Event):void
 		{
 			expldSnd.play();
 			innerRect.removeEventListener(MouseEvent.MOUSE_MOVE, innerRectMouseMoveHandler);
@@ -87,7 +106,7 @@
             innerRect.graphics.endFill();
 		}
 		
-		private function innerRectMouseMoveHandler(e:Event):void
+		public function innerRectMouseMoveHandler(e:Event):void
 		{
 			innerRect.addEventListener(MouseEvent.MOUSE_MOVE, innerRectMouseMoveHandler, false, 0, true);
             innerRect.graphics.beginFill((Math.random() * 0xFFFFFF));
